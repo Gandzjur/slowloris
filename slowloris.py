@@ -105,12 +105,12 @@ else:
 
 
 def send_line(self, line):
-    line = f"{line}\r\n"
+    line = "{line}\r\n".format(line=line)
     self.send(line.encode("utf-8"))
 
 
 def send_header(self, name, value):
-    self.send_line(f"{name}: {value}")
+    self.send_line("{name}: {value}".format(name=name, value=value))
 
 
 if args.https:
@@ -163,7 +163,7 @@ def init_socket(ip):
 
     s.connect((ip, args.port))
 
-    s.send_line(f"GET /?{random.randint(0, 2000)} HTTP/1.1")
+    s.send_line("GET /?{} HTTP/1.1".format(random.randint(0, 2000)))
 
     ua = user_agents[0]
     if args.randuseragent:
